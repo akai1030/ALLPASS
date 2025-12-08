@@ -28,7 +28,9 @@ function makeList(items) {
 // --- API: 接收前端資料並寄信 ---
 app.post('/api/send-report', async (req, res) => {
   const formData = req.body;
-  const targetEmail = "taitung.youthvolunteer@gmail.com"; 
+  
+  // 這裡接收前端選取的中心 Email，如果沒選則預設為臺東中心
+  const targetEmail = formData.targetCenterEmail || "taitung.youthvolunteer@gmail.com";
   const subject = "【ALL PASS 回報】" + formData.userEmail;
 
   // 1. 製作 Email 內容 HTML

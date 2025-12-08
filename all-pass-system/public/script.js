@@ -61,7 +61,7 @@
     }
   }
 
-  // 新增：計畫品質檢查邏輯
+  // 計畫品質檢查邏輯
   function checkPlanQuality() {
       // 取得所有 plan-check 的 checkbox
       const checks = document.querySelectorAll('.plan-check');
@@ -319,6 +319,14 @@
 
   // --- 送出資料邏輯 (Node.js Fetch 版) ---
   function submitToGmail() {
+    // 檢查是否選擇了志工中心
+    const centerEmail = document.getElementById('centerSelect').value;
+    if(!centerEmail) {
+      alert("請選擇所屬的青年志工中心！");
+      document.getElementById('centerSelect').focus();
+      return;
+    }
+
     const email = document.getElementById('userEmail').value;
     
     // 簡單驗證 Email
@@ -363,6 +371,7 @@
 
     // 收集所有資料
     const formData = {
+      targetCenterEmail: centerEmail, // 新增：傳送給後端的目標信箱
       userEmail: email,
       serviceDate: document.getElementById('applyServiceDate').value,
       
