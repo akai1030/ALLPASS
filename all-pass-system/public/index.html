@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ALL PASS">
+
+  <title>ALL PASS 自組團隊全能自檢系統</title>
+  
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAACQAQMAAADdiHD7AAAABlBMVEUAAAAAzEQ6Wl4fAAAAAXRSTlMAQObYZgAAAFRJREFUeF7t0cENgDAMBESYjCWYjKVYkh04oPwlKq/y6Z44960tXWu61nSt6VrTtaZrTdeasx388x388x388x388x388x388x388x388x388x38853q2tK15uwDG2K/BKGLS2cAAAAASUVORK5CYII=">
+  <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAACQAQMAAADdiHD7AAAABlBMVEUAAAAAzEQ6Wl4fAAAAAXRSTlMAQObYZgAAAFRJREFUeF7t0cENgDAMBESYjCWYjKVYkh04oPwlKq/y6Z44960tXWu61nSt6VrTtaZrTdeasx388x388x388x388x388x388x388x388x388x38853q2tK15uwDG2K/BKGLS2cAAAAASUVORK5CYII=">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="marquee-container" style="animation-duration: 40s;">
+  <div class="marquee-content">
+    FINAL AUDIT /// 記得吃飯 /// NO REJECT /// 愛要及時 /// ZERO ERROR /// 保持熱情 /// CHECKPOINT PROTOCOL /// 世界需要你 /// FULL COVERAGE /// 平安回家 /// 12-15 DEADLINE /// 不要壓線 /// STATUS 200 /// 放慢腳步 /// INSURANCE VALID /// 熱情不滅 /// ALL PASS SYSTEM /// 服務至上 /// COMMIT & DEPLOY /// 快樂出隊 /// RECEIPT OK /// 多喝點水 /// ACTUAL vs PLAN /// 夢想實現 /// 臺東青年志工中心 ///
+    FINAL AUDIT /// 記得吃飯 /// NO REJECT /// 愛要及時 /// ZERO ERROR /// 保持熱情 /// CHECKPOINT PROTOCOL /// 世界需要你 /// FULL COVERAGE /// 平安回家 /// 12-15 DEADLINE /// 不要壓線 /// STATUS 200 /// 放慢腳步 /// INSURANCE VALID /// 熱情不滅 /// ALL PASS SYSTEM /// 服務至上 /// COMMIT & DEPLOY /// 快樂出隊 /// RECEIPT OK /// 多喝點水 /// ACTUAL vs PLAN /// 夢東青年志工中心 ///
+  </div>
+</div>
+
+<div class="header">
+  <div class="meta-row">
+    <span class="brand">MINISTRY OF EDUCATION 臺東青年志工中心 </span>
+    <span class="version-tag">VER 2.0</span>
+  </div>
+  
+  <div class="title-group">
+    <h1 class="glitch-title">
+      ALL PASS 自組團隊全能自檢系統<span class="cursor-box"></span>
+    </h1>
+    
+    <div class="sub-info-bar">
+      <div class="deco-line"></div>
+      <span class="code">SYS.114</span>
+    </div>
+  </div>
+</div>
+
+<div class="main-container">
+
+  <div class="nav-pills">
+    <div class="nav-item active" onclick="switchMode('apply')">01 申請前</div>
+    <div class="nav-item" onclick="switchMode('close')">02 結案</div>
+    <div class="nav-item" onclick="switchMode('info')">03 聲明/聯絡</div>
+  </div>
+
+  <div id="mode-apply">
+    <div class="card">
+      <div class="card-header">
+        <span class="section-title">01 / 申請時間檢查</span>
+        <i class="ph ph-calendar-blank ph-icon"></i>
+      </div>
+      <label>活動首日 Date of Service</label>
+      <span class="sub-label">系統將以「今天」為基準計算是否符合 37 天規定</span>
+      <input type="date" id="applyServiceDate" onchange="checkApplication()">
+      
+      <div style="margin-bottom: 25px; padding: 20px; border: 2px dashed #ccc; background: #fafafa; border-radius: 4px;">
+        <div style="font-weight: 900; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; font-size: 1.1rem;">
+            <i class="ph-fill ph-alarm" style="color:var(--ink); font-size:1.2rem;"></i> 重要時程規範
+        </div>
+        <ul style="list-style: none; padding: 0; margin: 0; font-size: 1rem; line-height: 1.8;">
+            <li style="margin-bottom: 10px; display:flex; align-items:baseline;">
+                <span style="background: var(--ink); color: #fff; padding: 3px 10px; font-size: 0.85rem; font-weight: bold; margin-right: 12px; border-radius:2px; flex-shrink:0;">首次提案</span>
+                <span style="color: var(--sub-ink);">須於活動前 <strong style="color: var(--ink); border-bottom:3px solid var(--neon);">37 天</strong> 完成系統送出。</span>
+            </li>
+            <li style="display:flex; align-items:baseline;">
+                <span style="background: #aaa; color: #fff; padding: 3px 10px; font-size: 0.85rem; font-weight: bold; margin-right: 12px; border-radius:2px; flex-shrink:0;">退件修正</span>
+                <span style="color: var(--sub-ink);">若被退件，須於活動前 <strong style="color: var(--ink); border-bottom:3px solid var(--warn);">30 天</strong> 完成修正。</span>
+            </li>
+        </ul>
+      </div>
+
+      <div id="apply-validator" class="validator-box hidden">
+        <span class="v-status">WAITING INPUT...</span>
+        <span class="v-msg">請選擇日期</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="mode-close" class="hidden">
+    
+    <div class="card" style="border-top: 5px solid var(--alert);">
+      <div class="card-header">
+        <span class="section-title">01 / Terms Check 我們已經知悉且無這些狀況</span>
+        <i class="ph ph-warning-octagon ph-icon" style="color:var(--alert)"></i>
+      </div>
+      
+      <div class="toggle-block" onclick="toggleCheck(this)">
+        <div class="toggle-square"><i class="ph-bold ph-check"></i></div>
+        <div class="toggle-text">成果（人數與時數）未達 2/3 扣減 1/3 獎金 <span class="tag">簡章14(五)</span></div>
+        <input type="checkbox" class="clause-check hidden" onchange="checkTerms()">
+      </div>
+      <div class="toggle-block" onclick="toggleCheck(this)">
+        <div class="toggle-square"><i class="ph-bold ph-check"></i></div>
+        <div class="toggle-text">保險不足扣 10% / 未保險取消 <span class="tag">簡章14(六)</span></div>
+        <input type="checkbox" class="clause-check hidden" onchange="checkTerms()">
+      </div>
+      <div class="toggle-block" onclick="toggleCheck(this)">
+        <div class="toggle-square"><i class="ph-bold ph-check"></i></div>
+        <div class="toggle-text">12/15 前須完成結案 <span class="tag">簡章14(九)</span></div>
+        <input type="checkbox" class="clause-check hidden" onchange="checkTerms()">
+      </div>
+
+      <div id="terms-validator" class="validator-box fail">
+        <span class="v-status">Action Required</span>
+        <div class="v-msg"><span>請勾選確認以上所有條款</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="section-title">02 / 實際執行檢核</span>
+        <i class="ph ph-chart-bar ph-icon"></i>
+      </div>
+      
+      <label>計畫類別 Type</label>
+      <select id="projectType" onchange="checkData()">
+        <option value="general">一般型 (6人 / 12小時)</option>
+        <option value="project">專案型 (10人 / 18小時)</option>
+      </select>
+
+      <div class="grid" style="align-items: start; gap: 30px;">
+        
+        <div style="background: #FAFAFA; padding: 15px; border-radius: 8px; border: 1px dashed #ccc;">
+            <div style="font-family: var(--mono); color: #888; font-weight: 700; margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+                // PLAN 原定計畫
+            </div>
+
+            <label>人數</label>
+            <input type="number" id="planPeople" placeholder="0" oninput="checkData()">
+
+            <label>時數</label>
+            <input type="number" id="planHours" placeholder="0" oninput="checkData()">
+
+            <label>受眾</label>
+            <input type="number" id="planBen" placeholder="0" oninput="checkData()" style="margin-bottom: 0;">
+        </div>
+
+        <div style="background: #fff; padding: 15px; border-radius: 8px; border: 2px solid var(--ink); box-shadow: 4px 4px 0 rgba(0,0,0,0.1);">
+            <div style="font-family: var(--mono); color: var(--ink); font-weight: 900; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px;">
+                // ACTUAL 實際執行
+            </div>
+
+            <label>人數</label>
+            <input type="number" id="actPeople" placeholder="0" oninput="checkData()">
+
+            <label>時數</label>
+            <input type="number" id="actHours" placeholder="0" oninput="checkData()">
+
+            <label>受眾</label>
+            <input type="number" id="actBen" placeholder="0" oninput="checkData()" style="margin-bottom: 0;">
+        </div>
+
+      </div>
+      <div id="data-validator" class="validator-box">
+        <span class="v-status">WAITING INPUT...</span>
+        <div class="v-msg" id="data-msg"><span>請輸入數據以開始計算</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="section-title">03 / 保險確認</span>
+        <i class="ph ph-shield-check ph-icon"></i>
+      </div>
+
+      <label>日期模式 Mode</label>
+      <div class="radio-group">
+          <div class="radio-btn active" id="btn-range" onclick="toggleDateMode('range')">連續期間</div>
+          <div class="radio-btn" id="btn-single" onclick="toggleDateMode('single')">指定單日</div>
+      </div>
+
+      <div id="date-mode-range">
+          <label>活動日期 (含交通)</label>
+          <div class="grid">
+            <input type="date" id="actStartDate" onchange="checkInsurance()">
+            <input type="date" id="actEndDate" onchange="checkInsurance()">
+          </div>
+          
+          <label>投保日期 (必須包覆活動)</label>
+          <div class="grid">
+            <input type="date" id="insStartDate" onchange="checkInsurance()">
+            <input type="date" id="insEndDate" onchange="checkInsurance()">
+          </div>
+      </div>
+
+      <div id="date-mode-single" class="hidden">
+          <label>活動與投保日 (單日檢核)</label>
+          <div class="sub-label">請新增所有活動天數，並確認當天投保日期正確。</div>
+          
+          <div id="single-dates-container">
+              </div>
+
+          <div class="btn-add" onclick="addDateRow()">
+              <i class="ph-bold ph-plus"></i> 新增日期
+          </div>
+          <br>
+      </div>
+
+      <label>投保額度 Status</label>
+      <select id="insuranceStatus" onchange="checkInsurance()">
+        <option value="none">請選擇...</option>
+        <option value="full">符合規定 (至少包含意外身故與失能各200萬元、傷害醫療3萬元。)</option>
+        <option value="insufficient">保額不足 (金額低於規定)</option>
+        <option value="fail">未投保 / 使用學保</option>
+      </select>
+
+      <div class="toggle-block" onclick="toggleCheck(this)">
+        <div class="toggle-square"><i class="ph-bold ph-check"></i></div>
+        <div class="toggle-text">確認照片有青年署 Logo 露出</div>
+        <input type="checkbox" id="checkLogo" class="hidden" onchange="checkInsurance()">
+      </div>
+
+      <div id="ins-validator" class="validator-box">
+        <span class="v-status">WAITING INPUT...</span>
+        <div class="v-msg" id="ins-msg"><span>請填寫日期與狀態</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="section-title">04 / 領據確認</span>
+        <i class="ph ph-receipt ph-icon"></i>
+      </div>
+      
+      <label>領據類型</label>
+      <select id="receiptType" onchange="toggleReceiptList()">
+        <option value="personal">個人領據 (Personal)</option>
+        <option value="org">團體/學校領據 (Org)</option>
+      </select>
+
+      <div id="receipt-checklist"></div>
+
+      <div id="receipt-validator" class="validator-box">
+        <span class="v-status">WAITING INPUT...</span>
+        <div class="v-msg"><span>請完成上方所有檢核點</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="border-top: 5px solid var(--neon);">
+      <div class="card-header">
+        <span class="section-title">05 / FINAL SUBMIT 資料回報</span>
+        <i class="ph ph-paper-plane-right ph-icon" style="color:var(--neon)"></i>
+      </div>
+      
+      <label>您的 Email (作為識別)</label>
+      <span class="sub-label">填寫後系統將自動將上述資料寄送至志工中心備查。</span>
+      <input type="text" id="userEmail" placeholder="example@gmail.com">
+
+      <div class="btn-add" onclick="submitToGmail()" id="submitBtn">
+          <i class="ph-bold ph-paper-plane-right"></i> 確認並傳送資料
+      </div>
+      
+      <div id="submit-validator" class="validator-box hidden">
+        <span class="v-status">PROCESSING...</span>
+        <div class="v-msg"><span>正在連線傳送中...</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="mode-info" class="hidden">
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="section-title">03 / Information</span>
+        <i class="ph ph-info ph-icon"></i>
+      </div>
+
+      <label style="margin-bottom:20px;">津和堂｜臺東青年志工中心</label>
+      
+      <div class="toggle-block" style="cursor: default; background:#fff;">
+         <div class="toggle-square" style="border:none;"><i class="ph-fill ph-map-pin" style="color:var(--ink); display:block; font-size:24px;"></i></div>
+         <div class="toggle-text" style="font-weight:400;">950 臺東市正氣路372巷2號</div>
+      </div>
+
+      <a href="tel:089356800" class="info-link">
+        <div class="link-block">
+           <i class="ph ph-phone-call link-icon"></i>
+           <div class="link-content">
+              <span class="link-title">089-356800</span>
+              <span class="link-desc">上班時間來電</span>
+           </div>
+           <span class="link-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="https://lin.ee/Zdq1Top" target="_blank" class="info-link">
+        <div class="link-block" style="border-left: 5px solid #00C300;">
+           <i class="ph-fill ph-chat-circle-dots link-icon" style="color:#00C300"></i>
+           <div class="link-content">
+              <span class="link-title">加入 Line@ 好友</span>
+              <span class="link-desc">@Zdq1Top</span>
+           </div>
+           <span class="link-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="https://portaly.cc/taitung.youthvolunteer" target="_blank" class="info-link">
+        <div class="link-block" style="border-left: 5px solid #000;">
+           <i class="ph ph-link link-icon"></i>
+           <div class="link-content">
+              <span class="link-title">萬用連結 Portaly</span>
+              <span class="link-desc">計畫簡介、百科大全</span>
+           </div>
+           <span class="link-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="https://reurl.cc/qYbLyn" target="_blank" class="info-link">
+        <div class="link-block">
+           <i class="ph ph-file-text link-icon"></i>
+           <div class="link-content">
+              <span class="link-title">計畫介紹</span>
+              <span class="link-desc">114年獎勵青年自組團隊計畫</span>
+           </div>
+           <span class="link-arrow">→</span>
+        </div>
+      </a>
+
+      <div class="ios-tutorial">
+        <div class="ios-title">
+            <i class="ph-fill ph-export"></i> 
+            如何加入 iPhone 主畫面？
+        </div>
+        <div class="step-row">
+            <div class="step-num">1</div>
+            <div class="step-text">點擊 Safari 瀏覽器下方的「分享」按鈕 <i class="ph ph-export"></i></div>
+        </div>
+        <div class="step-row">
+            <div class="step-num">2</div>
+            <div class="step-text">向下滑動，找到並點擊「加入主畫面」</div>
+        </div>
+        <div class="step-row">
+            <div class="step-num">3</div>
+            <div class="step-text">點擊右上角的「加入」，即可變身 Web App！</div>
+        </div>
+      </div>
+
+      <div class="footer-text">
+        如有需求，請洽您所屬之青年志工中心；系統問題請聯絡 臺東青年志工中心。
+        <span class="footer-copy">【本工具由教育部青年署臺東青年志工中心製作提供】<br>Copyright © 2025 Taitung Youth Volunteer Center. All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+
+</div> 
+
+<script src="script.js"></script>
+
+</body>
+</html>
