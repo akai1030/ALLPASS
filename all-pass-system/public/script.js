@@ -1,6 +1,6 @@
 // --- UI 互動邏輯 ---
   
-  function switchMode(mode) {
+function switchMode(mode) {
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('mode-apply').classList.add('hidden');
     document.getElementById('mode-close').classList.add('hidden');
@@ -40,6 +40,34 @@
     let html = '';
     lines.forEach(l => html += `<span>${l}</span>`);
     box.querySelector('.v-msg').innerHTML = html;
+
+    // --- 觸發小幫手反應 (Validation Hook) ---
+    const helper = document.getElementById('pixel-helper');
+    const bubble = document.getElementById('helper-bubble');
+    
+    // 移除舊狀態
+    helper.classList.remove('helper-success', 'helper-error', 'helper-idle', 'helper-typing');
+
+    if (status === 'pass') {
+        helper.classList.add('helper-success');
+        bubble.innerText = '太棒了！完美通過！✨';
+    } else if (status === 'fail') {
+        helper.classList.add('helper-error');
+        bubble.innerText = '噢不...這裡有問題 🚨';
+    } else if (status === 'warn') {
+        // Warn 也可以當作一種 Error 提醒
+        helper.classList.add('helper-error'); 
+        bubble.innerText = '注意！這裡需要檢查 ⚠️';
+    }
+    
+    // 3秒後恢復正常
+    setTimeout(() => {
+        helper.classList.remove('helper-success', 'helper-error');
+        if(!helper.classList.contains('active')) {
+             // 如果原本不是 focus 狀態，就隱藏氣泡
+             // bubble.innerText = '...';
+        }
+    }, 3000);
   }
 
   // --- 業務邏輯 ---
@@ -327,6 +355,17 @@
       return;
     }
 
+    // 抓取團隊名稱與編號
+    const teamName = document.getElementById('teamName').value;
+    const teamId = document.getElementById('teamId').value;
+    
+    // 簡單檢查團隊名稱
+    if(!teamName) {
+      alert("請填寫團隊名稱！");
+      document.getElementById('teamName').focus();
+      return;
+    }
+
     const email = document.getElementById('userEmail').value;
     
     // 簡單驗證 Email
@@ -340,6 +379,11 @@
     const btn = document.getElementById('submitBtn');
     btn.style.pointerEvents = 'none';
     btn.innerHTML = '<i class="ph-bold ph-spinner"></i> 整理資料中...';
+    
+    // 觸發小幫手動畫 (Submit)
+    const helper = document.getElementById('pixel-helper');
+    helper.classList.add('helper-success'); // 用成功動畫代替發送中動畫
+    document.getElementById('helper-bubble').innerText = '正在幫你光速寄信中...🚀';
     
     setValidator('submit-validator', 'warn', 'SENDING...', ['正在連線伺服器...']);
 
@@ -371,7 +415,9 @@
 
     // 收集所有資料
     const formData = {
-      targetCenterEmail: centerEmail, // 新增：傳送給後端的目標信箱
+      targetCenterEmail: centerEmail, 
+      teamName: teamName,  
+      teamId: teamId,      
       userEmail: email,
       serviceDate: document.getElementById('applyServiceDate').value,
       
@@ -424,9 +470,87 @@
     });
   }
   
+  // ============================================
+  //          PIXEL HELPER LOGIC (互動邏輯)
+  // ============================================
+  document.addEventListener('DOMContentLoaded', () => {
+    const helper = document.getElementById('pixel-helper');
+    const bubble = document.getElementById('helper-bubble');
+    
+    // 1. 聚焦跟隨邏輯 (Focus Follow)
+    const targets = document.querySelectorAll('input, select, .toggle-block, .btn-add');
+    const tips = {
+        'applyServiceDate': '記得算好 37 天喔！',
+        'projectType': '選你是哪一種類型',
+        'planPeople': '預計會有多少人來？',
+        'userEmail': '寄信給你用的，別填錯囉',
+        'btn-add': '點我新增一筆！',
+        'teamName': '你們團隊叫什麼名字？',
+        'teamId': '如果還沒拿到可以先不填',
+        'centerSelect': '選你的管轄單位',
+        'default': '這裡要注意喔 👈'
+    };
+
+    targets.forEach(el => {
+        el.addEventListener('mouseenter', (e) => {
+            resetIdleTimer();
+            const rect = el.getBoundingClientRect();
+            // 計算位置：放在欄位的「左側」
+            const moveLeft = rect.left - 150; 
+            const moveTop = rect.top + (rect.height / 2) - 30;
+
+            helper.style.left = `${moveLeft}px`;
+            helper.style.top = `${moveTop}px`;
+            
+            helper.classList.remove('hidden', 'helper-idle');
+            helper.classList.add('active');
+
+            const id = el.id || 'default';
+            // 如果不是在報錯狀態，才更新文字
+            if(!helper.classList.contains('helper-error') && !helper.classList.contains('helper-success')) {
+                bubble.innerText = tips[id] || tips['default'];
+            }
+        });
+    });
+
+    // 2. 打字互動邏輯 (Typing)
+    const inputs = document.querySelectorAll('input[type="text"], input[type="number"]');
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            resetIdleTimer();
+            helper.classList.add('helper-typing');
+            bubble.innerText = '寫寫寫... ✍️';
+            
+            // 停止打字 0.5 秒後停止跳動
+            clearTimeout(input.typingTimeout);
+            input.typingTimeout = setTimeout(() => {
+                helper.classList.remove('helper-typing');
+                bubble.innerText = '寫好了嗎？';
+            }, 500);
+        });
+    });
+
+    // 3. 發呆偵測邏輯 (Idle)
+    let idleTimer;
+    function resetIdleTimer() {
+        clearTimeout(idleTimer);
+        helper.classList.remove('helper-idle');
+        
+        // 10秒無動作進入休眠
+        idleTimer = setTimeout(() => {
+            helper.classList.add('helper-idle');
+            bubble.innerText = 'Zzz... 😴';
+        }, 10000);
+    }
+
+    // 初始化啟動偵測
+    document.addEventListener('mousemove', resetIdleTimer);
+    document.addEventListener('keydown', resetIdleTimer);
+    resetIdleTimer();
+  });
+
   // 初始化
   toggleReceiptList();
-  // 如果預設就在第一頁，初始化計畫檢查
   if(!document.getElementById('mode-apply').classList.contains('hidden')){
       checkPlanQuality();
   }

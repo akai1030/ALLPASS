@@ -14,8 +14,8 @@
   
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   
-  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAACQAQMAAADdiHD7AAAABlBMVEUAAAAAzEQ6Wl4fAAAAAXRSTlMAQObYZgAAAFRJREFUeF7t0cENgDAMBESYjCWYjKVYkh04oPwlKq/y6Z44960tXWu61nSt6VrTtaZrTdeasx388x388x388x388x388x388x388x388x388x38853q2tK15uwDG2K/BKGLS2cAAAAASUVORK5CYII=">
-  <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAACQAQMAAADdiHD7AAAABlBMVEUAAAAAzEQ6Wl4fAAAAAXRSTlMAQObYZgAAAFRJREFUeF7t0cENgDAMBESYjCWYjKVYkh04oPwlKq/y6Z44960tXWu61nSt6VrTtaZrTdeasx388x388x388x388x388x388x388x388x388x38853q2tK15uwDG2K/BKGLS2cAAAAASUVORK5CYII=">
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAACQAQMAAADdiHD7AAAABlBMVEUAAAAAzEQ6Wl4fAAAAAXRSTlMAQObYZgAAAFRJREFUeF7t0cENgDAMBESYjCWYjKVYkh04oPwlKq/y6Z44960tXWu61nSt6VrTtaZrTdeasx388x388x388x388x388x388x388x388x38853q2tK15uwDG2K/BKGLS2cAAAAASUVORK5CYII=">
+  <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAACQAQMAAADdiHD7AAAABlBMVEUAAAAAzEQ6Wl4fAAAAAXRSTlMAQObYZgAAAFRJREFUeF7t0cENgDAMBESYjCWYjKVYkh04oPwlKq/y6Z44960tXWu61nSt6VrTtaZrTdeasx388x388x388x388x388x388x388x388x38853q2tK15uwDG2K/BKGLS2cAAAAASUVORK5CYII=">
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -31,7 +31,7 @@
 <div class="header">
   <div class="meta-row">
     <span class="brand">MINISTRY OF EDUCATION 臺東青年志工中心 </span>
-    <span class="version-tag">VER 2.2</span>
+    <span class="version-tag">VER 2.4 (LIVE BOT)</span>
   </div>
   
   <div class="title-group">
@@ -344,6 +344,13 @@
         <option value="tourfe01@gmail.com">花蓮青年志工中心</option>
         <option value="taitung.youthvolunteer@gmail.com">臺東青年志工中心</option>
       </select>
+
+      <label>團隊名稱 Team Name</label>
+      <input type="text" id="teamName" placeholder="請輸入團隊名稱">
+
+      <label>團隊編號 Team ID</label>
+      <span class="sub-label">若尚未取得編號可填「無」或留空</span>
+      <input type="text" id="teamId" placeholder="例如：114-G-001">
       
       <label>您的 Email (作為識別)</label>
       <span class="sub-label">填寫後系統將自動將上述資料寄送至志工中心備查。</span>
@@ -447,6 +454,20 @@
   </div>
 
 </div> 
+
+<div id="pixel-helper">
+  <div class="bot-container">
+    <div class="bot-body">
+      <div class="bot-face">
+        <div class="bot-eye left"></div>
+        <div class="bot-eye right"></div>
+        <div class="bot-mouth"></div>
+      </div>
+    </div>
+    <div class="bot-shadow"></div>
+  </div>
+  <div id="helper-bubble">準備好就出發！</div>
+</div>
 
 <script src="script.js"></script>
 
