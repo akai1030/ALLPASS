@@ -31,7 +31,7 @@
 <div class="header">
   <div class="meta-row">
     <span class="brand">MINISTRY OF EDUCATION 臺東青年志工中心 </span>
-    <span class="version-tag">VER 2.0</span>
+    <span class="version-tag">VER 2.1</span>
   </div>
   
   <div class="title-group">
@@ -84,6 +84,80 @@
         <span class="v-status">WAITING INPUT...</span>
         <span class="v-msg">請選擇日期</span>
       </div>
+    </div>
+
+    <div class="card" style="border-top: 5px solid var(--warn);">
+        <div class="card-header">
+          <span class="section-title">02 / 計畫品質健檢 (PLAN CHECK)</span>
+          <i class="ph ph-list-checks ph-icon"></i>
+        </div>
+  
+        <div style="background: #FFF8E1; color: #5D4037; padding: 15px; margin-bottom: 25px; border-radius: 6px; font-size: 0.95rem; line-height: 1.6;">
+            <strong><i class="ph-fill ph-lightbulb"></i> 說明：</strong> 此區協助您檢核計畫書是否符合評審標準與加分項目。勾選越多，獲得高額獎金的機率越高！
+        </div>
+
+        <label>A. 基礎門檻 (生存 KPI)</label>
+        <span class="sub-label">沒達到這些，計畫會被直接退件。</span>
+        
+        <div class="toggle-block" onclick="toggleCheck(this)">
+            <div class="toggle-square"><i class="ph-bold ph-check"></i></div>
+            <div class="toggle-text">人數與時數符合規定 <span class="tag">一般6人/12hr, 專案10人/18hr</span></div>
+            <input type="checkbox" class="plan-check hidden" onchange="checkPlanQuality()">
+        </div>
+        <div class="toggle-block" onclick="toggleCheck(this)">
+            <div class="toggle-square"><i class="ph-bold ph-check"></i></div>
+            <div class="toggle-text">團隊成員年齡皆為 15-35 歲 <span class="tag">簡章規定</span></div>
+            <input type="checkbox" class="plan-check hidden" onchange="checkPlanQuality()">
+        </div>
+        <div class="toggle-block" onclick="toggleCheck(this)">
+            <div class="toggle-square"><i class="ph-bold ph-check"></i></div>
+            <div class="toggle-text">經費已編列「保險費」 <span class="tag">不可用學保替代</span></div>
+            <input type="checkbox" class="plan-check hidden" onchange="checkPlanQuality()">
+        </div>
+
+        <label style="margin-top:30px;">B. 評審標準 (高分 KPI)</label>
+        <span class="sub-label">對應簡章評審標準：完整性、可行性、影響性。</span>
+
+        <div class="toggle-block" onclick="toggleCheck(this)">
+            <div class="toggle-square"><i class="ph-bold ph-check"></i></div>
+            <div class="toggle-text">[完整性] 已進行「需求調查」，確認服務是對方需要的 <span class="tag">30%</span></div>
+            <input type="checkbox" class="plan-check hidden" onchange="checkPlanQuality()">
+        </div>
+        <div class="toggle-block" onclick="toggleCheck(this)">
+            <div class="toggle-square"><i class="ph-bold ph-check"></i></div>
+            <div class="toggle-text">[可行性] 服務流程步驟清晰，預算編列合理 <span class="tag">40%</span></div>
+            <input type="checkbox" class="plan-check hidden" onchange="checkPlanQuality()">
+        </div>
+        <div class="toggle-block" onclick="toggleCheck(this)">
+            <div class="toggle-square"><i class="ph-bold ph-check"></i></div>
+            <div class="toggle-text">[影響性] 安排「反思討論」環節，並具備公益性 <span class="tag">30%</span></div>
+            <input type="checkbox" class="plan-check hidden" onchange="checkPlanQuality()">
+        </div>
+
+        <label style="margin-top:30px;">C. 升級加分項 (Bonus)</label>
+        <span class="sub-label">符合以下條件可優予獎勵或加發獎金。</span>
+
+        <div class="toggle-block" onclick="toggleCheck(this)">
+            <div class="toggle-square"><i class="ph-bold ph-check"></i></div>
+            <div class="toggle-text">服務對象/成員包含特定族群 <span class="tag">偏鄉/弱勢/原民/新二代</span></div>
+            <input type="checkbox" class="plan-check hidden" onchange="checkPlanQuality()">
+        </div>
+        <div class="toggle-block" onclick="toggleCheck(this)">
+            <div class="toggle-square"><i class="ph-bold ph-check"></i></div>
+            <div class="toggle-text">結合 SDGs 或 12年國教課綱議題 <span class="tag">議題連結</span></div>
+            <input type="checkbox" class="plan-check hidden" onchange="checkPlanQuality()">
+        </div>
+        <div class="toggle-block" onclick="toggleCheck(this)">
+            <div class="toggle-square"><i class="ph-bold ph-check"></i></div>
+            <div class="toggle-text">符合青年署「當月指定主題」 <span class="tag">獎金+5000</span></div>
+            <input type="checkbox" class="plan-check hidden" onchange="checkPlanQuality()">
+        </div>
+
+        <div id="plan-validator" class="validator-box">
+            <span class="v-status">PLAN ANALYSIS</span>
+            <div class="v-msg">請勾選上方項目以進行分析</div>
+        </div>
+
     </div>
   </div>
 
