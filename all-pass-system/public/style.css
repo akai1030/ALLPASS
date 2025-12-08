@@ -288,10 +288,10 @@ input:focus, select:focus {
     pointer-events: none; 
     display: flex;
     align-items: center;
-    bottom: -150px; 
-    right: -150px;
-    transition: left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    top: 50%;
+    left: 50%;
+    transition: left 0.6s cubic-bezier(0.22, 1, 0.36, 1), 
+                top 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 #pixel-helper.active {
@@ -312,6 +312,7 @@ input:focus, select:focus {
     position: relative;
     border-radius: 8px; /* 稍微圓角 */
     animation: float 2s infinite ease-in-out;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
 }
 
 .bot-face {

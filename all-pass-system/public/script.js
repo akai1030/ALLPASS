@@ -63,10 +63,6 @@ function switchMode(mode) {
     // 3秒後恢復正常
     setTimeout(() => {
         helper.classList.remove('helper-success', 'helper-error');
-        if(!helper.classList.contains('active')) {
-             // 如果原本不是 focus 狀態，就隱藏氣泡
-             // bubble.innerText = '...';
-        }
     }, 3000);
   }
 
@@ -477,23 +473,68 @@ function switchMode(mode) {
     const helper = document.getElementById('pixel-helper');
     const bubble = document.getElementById('helper-bubble');
     
+    // 機器人的閒聊語錄
+    const jokes = [
+        "喵嗚～", 
+        "今天天氣真好 ☀️", 
+        "你的計畫寫得怎麼樣？", 
+        "不要偷懶喔！盯著你～", 
+        "Zzz... 😴",
+        "我只是個 8-bit 生物，別太苛求我。",
+        "記得核銷單據喔！",
+        "保險買了嗎？喵？",
+        "你知道為什麼電腦不吃飯嗎？因為它有 Bit！",
+        "快點填完，我們去拯救世界！"
+    ];
+
+    let isLocked = false; // 是否鎖定在某個欄位上
+    let idleTimer;
+    let talkInterval;
+
     // 1. 聚焦跟隨邏輯 (Focus Follow)
     const targets = document.querySelectorAll('input, select, .toggle-block, .btn-add');
     const tips = {
-        'applyServiceDate': '記得算好 37 天喔！',
-        'projectType': '選你是哪一種類型',
-        'planPeople': '預計會有多少人來？',
-        'userEmail': '寄信給你用的，別填錯囉',
-        'btn-add': '點我新增一筆！',
-        'teamName': '你們團隊叫什麼名字？',
-        'teamId': '如果還沒拿到可以先不填',
-        'centerSelect': '選你的管轄單位',
+        'applyServiceDate': '記得算好 37 天喔！📅',
+        'projectType': '選你是哪一種類型 🤔',
+        'planPeople': '預計會有多少人來？👥',
+        'userEmail': '寄信給你用的，別填錯囉 📧',
+        'btn-add': '點我新增一筆！➕',
+        'teamName': '你們團隊叫什麼名字？📛',
+        'teamId': '如果還沒拿到可以先不填 🆔',
+        'centerSelect': '選你的管轄單位 🏢',
         'default': '這裡要注意喔 👈'
     };
 
+    // 隨機說話功能
+    function speakRandomly() {
+        if (!isLocked && !helper.classList.contains('active')) {
+            const randomMsg = jokes[Math.floor(Math.random() * jokes.length)];
+            bubble.innerText = randomMsg;
+            helper.classList.add('active'); // 顯示氣泡
+            
+            // 講完話 3 秒後消失
+            setTimeout(() => {
+                if (!isLocked) helper.classList.remove('active');
+            }, 3000);
+        }
+    }
+
+    // 滑鼠移動時跟隨
+    document.addEventListener('mousemove', (e) => {
+        resetIdleTimer();
+        if (!isLocked) {
+            // 跟隨滑鼠，稍微偏移一點
+            helper.style.left = (e.clientX + 20) + 'px';
+            helper.style.top = (e.clientY + 20) + 'px';
+        }
+    });
+
     targets.forEach(el => {
+        // 移入欄位：鎖定位置
         el.addEventListener('mouseenter', (e) => {
+            isLocked = true;
             resetIdleTimer();
+            
             const rect = el.getBoundingClientRect();
             // 計算位置：放在欄位的「左側」
             const moveLeft = rect.left - 150; 
@@ -511,6 +552,12 @@ function switchMode(mode) {
                 bubble.innerText = tips[id] || tips['default'];
             }
         });
+
+        // 移出欄位：解除鎖定
+        el.addEventListener('mouseleave', () => {
+            isLocked = false;
+            helper.classList.remove('active'); // 隱藏氣泡
+        });
     });
 
     // 2. 打字互動邏輯 (Typing)
@@ -520,6 +567,7 @@ function switchMode(mode) {
             resetIdleTimer();
             helper.classList.add('helper-typing');
             bubble.innerText = '寫寫寫... ✍️';
+            helper.classList.add('active');
             
             // 停止打字 0.5 秒後停止跳動
             clearTimeout(input.typingTimeout);
@@ -531,15 +579,20 @@ function switchMode(mode) {
     });
 
     // 3. 發呆偵測邏輯 (Idle)
-    let idleTimer;
     function resetIdleTimer() {
         clearTimeout(idleTimer);
+        clearInterval(talkInterval); // 清除說話計時器
+        
         helper.classList.remove('helper-idle');
         
+        // 重新啟動閒聊計時器 (每 15 秒講一次話)
+        talkInterval = setInterval(speakRandomly, 15000);
+
         // 10秒無動作進入休眠
         idleTimer = setTimeout(() => {
             helper.classList.add('helper-idle');
             bubble.innerText = 'Zzz... 😴';
+            helper.classList.add('active');
         }, 10000);
     }
 
