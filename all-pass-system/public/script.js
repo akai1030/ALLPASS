@@ -9,6 +9,7 @@
     if(mode === 'apply') {
       document.querySelector('.nav-item:nth-child(1)').classList.add('active');
       document.getElementById('mode-apply').classList.remove('hidden');
+      checkPlanQuality(); // 切換過來時也要執行檢查
     } else if(mode === 'close') {
       document.querySelector('.nav-item:nth-child(2)').classList.add('active');
       document.getElementById('mode-close').classList.remove('hidden');
@@ -58,6 +59,60 @@
     } else {
       setValidator('apply-validator', 'fail', 'REJECTED', [`剩 ${diffDays} 天`, `時間不足 (需30天以上)`]);
     }
+  }
+
+  // 新增：計畫品質檢查邏輯
+  function checkPlanQuality() {
+      // 取得所有 plan-check 的 checkbox
+      const checks = document.querySelectorAll('.plan-check');
+      let score = 0;
+      let basicCount = 0;
+      let standardCount = 0;
+      let bonusCount = 0;
+
+      // 檢查狀態 (前3個是基礎, 中間3個是標準, 後3個是Bonus)
+      checks.forEach((chk, index) => {
+          if(chk.checked) {
+              if(index < 3) basicCount++;
+              else if(index < 6) standardCount++;
+              else bonusCount++;
+          }
+      });
+
+      const validatorId = 'plan-validator';
+      let messages = [];
+      let statusClass = '';
+      let title = '';
+
+      if (basicCount < 3) {
+          // 基礎沒過
+          statusClass = 'fail';
+          title = 'CRITICAL MISSING';
+          messages.push(`基礎門檻未達標 (${basicCount}/3)`);
+          messages.push('⚠️ 請確認人數、年齡與保險費編列，否則將無法通過資格審查。');
+      } else if (standardCount < 3) {
+          // 標準沒過
+          statusClass = 'warn';
+          title = 'WEAK PROPOSAL';
+          messages.push('基礎門檻已通過 ☑');
+          messages.push(`評審標準尚缺 ${3-standardCount} 項`);
+          messages.push('💡 建議加強需求調查或反思環節，以提高過件率。');
+      } else {
+          // 基礎+標準都過
+          statusClass = 'pass';
+          title = 'STRONG PROPOSAL';
+          messages.push('基礎與評審標準皆完善 ☑');
+          
+          if (bonusCount > 0) {
+             title = 'EXCELLENT (BONUS+)';
+             messages.push(`✨ 觸發 ${bonusCount} 項加分條件！`);
+             messages.push('有極高機率獲得高額獎金。');
+          } else {
+             messages.push('可嘗試勾選下方加分項以爭取更高獎金。');
+          }
+      }
+
+      setValidator(validatorId, statusClass, title, messages);
   }
 
   function checkTerms() {
@@ -362,3 +417,7 @@
   
   // 初始化
   toggleReceiptList();
+  // 如果預設就在第一頁，初始化計畫檢查
+  if(!document.getElementById('mode-apply').classList.contains('hidden')){
+      checkPlanQuality();
+  }
